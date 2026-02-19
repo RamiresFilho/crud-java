@@ -1,5 +1,8 @@
 package application;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 import repository.UsuarioRepository;
 import service.UsuarioService;
 
@@ -9,10 +12,12 @@ public class App {
 
     public static void main(String[] args) {
 
-        UsuarioRepository repository = new UsuarioRepository();
-        repository.criarTabela();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("banco-h2");
+        EntityManager em = emf.createEntityManager();
 
+        UsuarioRepository repository = new UsuarioRepository(em);
         UsuarioService service = new UsuarioService(repository);
+
         Scanner scanner = new Scanner(System.in);
         boolean rodando = true;
 
@@ -69,5 +74,7 @@ public class App {
         }
 
         scanner.close();
+        em.close();
+        emf.close();
     }
 }
