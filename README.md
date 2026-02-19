@@ -38,6 +38,9 @@ src/main/java/
 
 ## 🧠 Conceitos de POO Aplicados
 
+### Abstração
+Pessoa é uma classe abstrata que representa o conceito de uma pessoa no sistema — ela não pode ser instanciada diretamente, apenas serve de modelo para suas subclasses.
+
 ### Encapsulamento
 Atributos privados com acesso controlado por getters e setters em todas as classes de modelo.
 
