@@ -13,6 +13,8 @@ Desenvolver um CRUD completo em Java como base de projeto que será utilizada e 
 ## 🚀 Tecnologias
 
 - Java 21
+- JPA (Jakarta Persistence API 3.2)
+- Hibernate 7 (implementação do JPA)
 - Banco de dados H2 (em memória)
 - Maven
 - IntelliJ IDEA
@@ -22,16 +24,20 @@ Desenvolver um CRUD completo em Java como base de projeto que será utilizada e 
 ## 🏗️ Estrutura do Projeto
 
 ```
-src/main/java/
-├── application/
-│   └── App.java        # Ponto de entrada, menu interativo
-├── model/
-│   ├── Pessoa.java             # Classe abstrata base (Herança)
-│   └── Usuario.java            # Herda Pessoa, adiciona email
-├── repository/
-│   └── UsuarioRepository.java  # Conexão com H2 e operações SQL
-└── service/
-    └── UsuarioService.java     # Regras de negócio e coordenação
+src/main/
+├── java/
+│   ├── application/
+│   │   └── App.java                # Ponto de entrada, menu interativo
+│   ├── model/
+│   │   ├── Pessoa.java             # Classe abstrata base (Herança + @MappedSuperclass)
+│   │   └── Usuario.java            # Herda Pessoa, adiciona email (@Entity)
+│   ├── repository/
+│   │   └── UsuarioRepository.java  # Operações JPA com EntityManager
+│   └── service/
+│       └── UsuarioService.java     # Regras de negócio e coordenação
+└── resources/
+    └── META-INF/
+        └── persistence.xml         # Configuração do JPA e Hibernate
 ```
 
 ---
@@ -39,7 +45,7 @@ src/main/java/
 ## 🧠 Conceitos de POO Aplicados
 
 ### Abstração
-Pessoa é uma classe abstrata que representa o conceito de uma pessoa no sistema — ela não pode ser instanciada diretamente, apenas serve de modelo para suas subclasses.
+`Pessoa` é uma classe abstrata que representa o conceito de uma pessoa no sistema — ela não pode ser instanciada diretamente, apenas serve de modelo para suas subclasses.
 
 ### Encapsulamento
 Atributos privados com acesso controlado por getters e setters em todas as classes de modelo.
@@ -67,8 +73,22 @@ Método abstrato `exibirDados()` definido em `Pessoa` e implementado de forma es
 Utiliza H2 em memória — os dados existem enquanto a aplicação está rodando e são apagados ao encerrar.
 
 ```
-URL: jdbc:h2:mem:bancodb
+URL: jdbc:h2:mem:banco-h2
 ```
+
+## ⚙️ JPA e Hibernate
+
+O projeto utiliza JPA como camada de abstração de persistência e Hibernate como implementação. O `EntityManager` substitui o JDBC manual, sem SQL escrito à mão, no repositório.
+
+Antes (JDBC)
+| `Connection`, `PreparedStatement` 
+| SQL manual (`INSERT`, `SELECT`) 
+| `criarTabela()` manual 
+
+Depois (JPA)
+| `EntityManager`
+| `persist`, `find`, `merge`, `remove`
+| `hibernate.hbm2ddl.auto=create`
 
 ---
 
@@ -95,4 +115,4 @@ git clone https://github.com/RamiresFilho/crud-java.git
 
 ## 👨‍💻 Autor
 
-Feito por **RamiresFilho** durante o BOOTCAMP JAVA (DELOITTE)
+Feito por **RamiresFilho** durante o Bootcamp Java (Deloitte)
