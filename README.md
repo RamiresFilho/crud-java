@@ -1,6 +1,6 @@
-# 📦 CRUD Java — Bootcamp
+# 📦 Gestão de Usuários — Bootcamp Java
 
-Sistema simples de cadastro de usuários desenvolvido em Java, utilizando banco de dados H2 em memória, aplicando os princípios de Programação Orientada a Objetos.
+Sistema de cadastro de usuários desenvolvido em Java, utilizando banco de dados H2 em memória, aplicando os princípios de Programação Orientada a Objetos e arquitetura em camadas.
 
 ---
 
@@ -13,6 +13,7 @@ Desenvolver um CRUD completo em Java como base de projeto que será utilizada e 
 ## 🚀 Tecnologias
 
 - Java 21
+- JPA + Hibernate
 - Banco de dados H2 (em memória)
 - Maven
 - IntelliJ IDEA
@@ -20,18 +21,21 @@ Desenvolver um CRUD completo em Java como base de projeto que será utilizada e 
 ---
 
 ## 🏗️ Estrutura do Projeto
-
 ```
-src/main/java/
-├── com.ramires.gestaousuarios.application/
-│   └── App.java        # Ponto de entrada, menu interativo
-├── com.ramires.gestaousuarios.model/
-│   ├── Pessoa.java             # Classe abstrata base (Herança)
-│   └── Usuario.java            # Herda Pessoa, adiciona email
-├── com.ramires.gestaousuarios.repository/
-│   └── UsuarioRepository.java  # Conexão com H2 e operações SQL
-└── com.ramires.gestaousuarios.service/
-    └── UsuarioService.java     # Regras de negócio e coordenação
+src/main/
+├── java/
+│   └── com.ramires.gestaousuarios/
+│       ├── App.java                        # Ponto de entrada, menu interativo
+│       ├── model/
+│       │   ├── Pessoa.java                 # Classe abstrata base (Herança)
+│       │   └── Usuario.java                # Herda Pessoa, adiciona email
+│       ├── repository/
+│       │   └── UsuarioRepository.java      # Operações com banco de dados via JPA
+│       └── service/
+│           └── UsuarioService.java         # Regras de negócio e coordenação
+└── resources/
+    └── META-INF/
+        └── persistence.xml                 # Configuração do JPA e H2
 ```
 
 ---
@@ -39,7 +43,7 @@ src/main/java/
 ## 🧠 Conceitos de POO Aplicados
 
 ### Abstração
-Pessoa é uma classe abstrata que representa o conceito de uma pessoa no sistema — ela não pode ser instanciada diretamente, apenas serve de modelo para suas subclasses.
+`Pessoa` é uma classe abstrata que representa o conceito de uma pessoa no sistema — ela não pode ser instanciada diretamente, apenas serve de modelo para suas subclasses.
 
 ### Encapsulamento
 Atributos privados com acesso controlado por getters e setters em todas as classes de modelo.
@@ -54,20 +58,19 @@ Método abstrato `exibirDados()` definido em `Pessoa` e implementado de forma es
 
 ## ⚙️ Funcionalidades (CRUD)
 
-- [x] Criar usuário
+- [x] Cadastrar novo usuário com validação de nome e e-mail
 - [x] Listar todos os usuários
 - [x] Buscar usuário por ID
-- [x] Atualizar dados de um usuário
-- [x] Remover usuário
+- [x] Atualizar dados de um usuário com confirmação
+- [x] Remover usuário com confirmação
 
 ---
 
 ## 🗄️ Banco de Dados
 
 Utiliza H2 em memória — os dados existem enquanto a aplicação está rodando e são apagados ao encerrar.
-
 ```
-URL: jdbc:h2:mem:bancodb
+URL: jdbc:h2:mem:banco-h2
 ```
 
 ---
@@ -89,10 +92,9 @@ git clone https://github.com/RamiresFilho/crud-java.git
 
 ## 📈 Próximas Evoluções
 
-- [ ] ...
-
+- [ ] Integração com Spring Boot
 ---
 
 ## 👨‍💻 Autor
 
-Feito por **RamiresFilho** durante o BOOTCAMP JAVA (DELOITTE)
+Feito por **RamiresFilho** durante o Bootcamp Java
