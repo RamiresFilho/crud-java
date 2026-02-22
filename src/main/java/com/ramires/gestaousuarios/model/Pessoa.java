@@ -1,4 +1,4 @@
-package model;
+package com.ramires.gestaousuarios.model;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

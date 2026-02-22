@@ -1,10 +1,10 @@
-package application;
+package com.ramires.gestaousuarios.application;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import repository.UsuarioRepository;
-import service.UsuarioService;
+import com.ramires.gestaousuarios.repository.UsuarioRepository;
+import com.ramires.gestaousuarios.service.UsuarioService;
 
 import java.util.Scanner;
 

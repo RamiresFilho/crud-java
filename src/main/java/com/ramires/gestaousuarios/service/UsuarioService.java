@@ -1,7 +1,7 @@
-package service;
+package com.ramires.gestaousuarios.service;
 
-import model.Usuario;
-import repository.UsuarioRepository;
+import com.ramires.gestaousuarios.model.Usuario;
+import com.ramires.gestaousuarios.repository.UsuarioRepository;
 
 import java.util.List;
 

@@ -7,7 +7,7 @@
 
     <persistence-unit name="banco-h2" transaction-type="RESOURCE_LOCAL">
 
-        <class>model.Usuario</class>
+        <class>com.ramires.gestaousuarios.model.Usuario</class>
 
         <properties>
 

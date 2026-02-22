@@ -23,14 +23,14 @@ Desenvolver um CRUD completo em Java como base de projeto que será utilizada e 
 
 ```
 src/main/java/
-├── application/
+├── com.ramires.gestaousuarios.application/
 │   └── App.java        # Ponto de entrada, menu interativo
-├── model/
+├── com.ramires.gestaousuarios.model/
 │   ├── Pessoa.java             # Classe abstrata base (Herança)
 │   └── Usuario.java            # Herda Pessoa, adiciona email
-├── repository/
+├── com.ramires.gestaousuarios.repository/
 │   └── UsuarioRepository.java  # Conexão com H2 e operações SQL
-└── service/
+└── com.ramires.gestaousuarios.service/
     └── UsuarioService.java     # Regras de negócio e coordenação
 ```
 

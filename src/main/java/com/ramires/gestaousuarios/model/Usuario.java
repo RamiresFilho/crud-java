@@ -1,4 +1,4 @@
-package model;
+package com.ramires.gestaousuarios.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

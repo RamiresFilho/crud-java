@@ -1,7 +1,7 @@
-package repository;
+package com.ramires.gestaousuarios.repository;
 
 import jakarta.persistence.EntityManager;
-import model.Usuario;
+import com.ramires.gestaousuarios.model.Usuario;
 
 import java.util.List;
 
