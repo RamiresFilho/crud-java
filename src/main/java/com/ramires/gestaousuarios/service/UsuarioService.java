@@ -2,9 +2,12 @@ package com.ramires.gestaousuarios.service;
 
 import com.ramires.gestaousuarios.model.Usuario;
 import com.ramires.gestaousuarios.repository.UsuarioRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Service
 public class UsuarioService {
 
     private final UsuarioRepository repository;
@@ -17,6 +20,7 @@ public class UsuarioService {
         return email.contains("@") && email.contains(".");
     }
 
+    @Transactional
     public void criarUsuario(String nome, String email) {
         Usuario usuario = new Usuario(null, nome, email);
         repository.salvar(usuario);
@@ -42,6 +46,7 @@ public class UsuarioService {
         }
     }
 
+    @Transactional
     public void atualizarUsuario(Long id, String novoNome, String novoEmail) {
         Usuario usuario = repository.buscarPorId(id);
         if (usuario == null) {
@@ -55,6 +60,7 @@ public class UsuarioService {
         System.out.println(usuario);
     }
 
+    @Transactional
     public void removerUsuario(Long id) {
         Usuario usuario = repository.buscarPorId(id);
         if (usuario == null) {

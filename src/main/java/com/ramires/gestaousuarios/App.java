@@ -1,23 +1,26 @@
 package com.ramires.gestaousuarios;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
-import com.ramires.gestaousuarios.repository.UsuarioRepository;
 import com.ramires.gestaousuarios.service.UsuarioService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 
 import java.util.Scanner;
 
-public class App {
+@SpringBootApplication
+public class App implements CommandLineRunner {
+
+    @Autowired
+    private UsuarioService service;
 
     public static void main(String[] args) {
+        SpringApplication.run(App.class, args);
+    }
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("banco-h2");
-        EntityManager em = emf.createEntityManager();
-
-        UsuarioRepository repository = new UsuarioRepository(em);
-        UsuarioService service = new UsuarioService(repository);
-
+    @Override
+    public void run(String... args) {
         Scanner scanner = new Scanner(System.in);
         boolean rodando = true;
 
@@ -124,9 +127,6 @@ public class App {
                 default -> System.out.println("\nOpção inválida. Tente novamente.");
             }
         }
-
         scanner.close();
-        em.close();
-        emf.close();
     }
 }

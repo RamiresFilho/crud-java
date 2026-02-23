@@ -1,22 +1,20 @@
 package com.ramires.gestaousuarios.repository;
 
-import jakarta.persistence.EntityManager;
 import com.ramires.gestaousuarios.model.Usuario;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class UsuarioRepository {
 
+    @PersistenceContext
     private EntityManager entityManager;
 
-    public UsuarioRepository(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
-
     public void salvar(Usuario usuario) {
-        entityManager.getTransaction().begin();
         entityManager.persist(usuario);
-        entityManager.getTransaction().commit();
     }
 
     public List<Usuario> listarTodos() {
@@ -30,17 +28,13 @@ public class UsuarioRepository {
     }
 
     public void atualizar(Usuario usuario) {
-        entityManager.getTransaction().begin();
         entityManager.merge(usuario);
-        entityManager.getTransaction().commit();
     }
 
     public void remover(Long id) {
         Usuario usuario = buscarPorId(id);
         if (usuario != null) {
-            entityManager.getTransaction().begin();
             entityManager.remove(usuario);
-            entityManager.getTransaction().commit();
         }
     }
 }
