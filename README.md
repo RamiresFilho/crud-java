@@ -1,6 +1,6 @@
 # 📦 Gestão de Usuários — Bootcamp Java
 
-Sistema de cadastro de usuários desenvolvido em Java, utilizando banco de dados H2 em memória, aplicando os princípios de Programação Orientada a Objetos e arquitetura em camadas.
+Sistema de cadastro de usuários desenvolvido em Java, utilizando banco de dados H2 em memória, aplicando os princípios de Programação Orientada a Objetos e arquitetura em camadas com Spring Boot.
 
 ---
 
@@ -13,6 +13,7 @@ Desenvolver um CRUD completo em Java como base de projeto que será utilizada e 
 ## 🚀 Tecnologias
 
 - Java 21
+- Spring Boot 3.4.2
 - JPA + Hibernate
 - Banco de dados H2 (em memória)
 - Maven
@@ -34,8 +35,7 @@ src/main/
 │       └── service/
 │           └── UsuarioService.java         # Regras de negócio e coordenação
 └── resources/
-    └── META-INF/
-        └── persistence.xml                 # Configuração do JPA e H2
+    └── application.properties              # Configuração do Spring Boot, JPA e H2
 ```
 
 ---
@@ -53,6 +53,20 @@ Atributos privados com acesso controlado por getters e setters em todas as class
 
 ### Polimorfismo
 Método abstrato `exibirDados()` definido em `Pessoa` e implementado de forma específica em `Usuario`. Permite que futuras classes como `Admin` ou `Cliente` exibam seus dados de maneiras diferentes sem alterar o serviço.
+
+---
+
+## 🍃 Arquitetura Spring Boot
+
+### Anotações utilizadas
+
+| Anotação | Classe | Função |
+|---|---|---|
+| `@SpringBootApplication` | `App` | Inicializa o Spring Boot e escaneia os pacotes automaticamente |
+| `@Service` | `UsuarioService` | Indica a camada de regras de negócio |
+| `@Repository` | `UsuarioRepository` | Indica a camada de acesso a dados |
+| `@PersistenceContext` | `UsuarioRepository` | Injeta o EntityManager gerenciado pelo Spring |
+| `@Transactional` | `UsuarioService` | Gerencia transações automaticamente |
 
 ---
 
@@ -88,11 +102,6 @@ git clone https://github.com/RamiresFilho/crud-java.git
 
 4. Execute a classe `App.java`
 
----
-
-## 📈 Próximas Evoluções
-
-- [ ] Integração com Spring Boot
 ---
 
 ## 👨‍💻 Autor
