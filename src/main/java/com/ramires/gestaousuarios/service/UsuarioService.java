@@ -17,7 +17,7 @@ public class UsuarioService {
     }
 
     public boolean emailValido(String email) {
-        return email.contains("@") && email.contains(".");
+        return email.contains("@") && email.contains(".com");
     }
 
     @Transactional
@@ -69,5 +69,13 @@ public class UsuarioService {
         }
         repository.remover(id);
         System.out.println("\nUsuário ID " + id + " removido com sucesso.");
+    }
+
+    public List<Usuario> listarTodos() {
+        return repository.listarTodos();
+    }
+
+    public Usuario buscarPorId(Long id) {
+        return repository.buscarPorId(id);
     }
 }
