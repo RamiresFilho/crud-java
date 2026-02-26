@@ -1,6 +1,6 @@
 # 📦 Gestão de Usuários — Bootcamp Java
 
-Sistema de cadastro de usuários desenvolvido em Java, utilizando banco de dados H2 em memória, aplicando os princípios de Programação Orientada a Objetos e arquitetura em camadas com Spring Boot.
+Sistema de cadastro de usuários desenvolvido em Java, utilizando banco de dados H2 em memória, aplicando os princípios de Programação Orientada a Objetos e arquitetura em camadas com Spring Boot e interface web com Thymeleaf e Bootstrap.
 
 ---
 
@@ -16,6 +16,8 @@ Desenvolver um CRUD completo em Java como base de projeto que será utilizada e 
 - Spring Boot 3.4.2
 - JPA + Hibernate
 - Banco de dados H2 (em memória)
+- Thymeleaf
+- Bootstrap 5.3
 - Maven
 - IntelliJ IDEA
 
@@ -26,7 +28,9 @@ Desenvolver um CRUD completo em Java como base de projeto que será utilizada e 
 src/main/
 ├── java/
 │   └── com.ramires.gestaousuarios/
-│       ├── App.java                        # Ponto de entrada, menu interativo
+│       ├── App.java                        # Ponto de entrada da aplicação
+│       ├── controller/
+│       │   └── UsuarioController.java      # Rotas e requisições web
 │       ├── model/
 │       │   ├── Pessoa.java                 # Classe abstrata base (Herança)
 │       │   └── Usuario.java                # Herda Pessoa, adiciona email
@@ -35,6 +39,10 @@ src/main/
 │       └── service/
 │           └── UsuarioService.java         # Regras de negócio e coordenação
 └── resources/
+    ├── templates/
+    │   ├── lista.html                      # Tela principal com tabela de usuários
+    │   ├── formulario.html                 # Tela de cadastro e edição
+    │   └── buscar.html                     # Tela de busca por ID
     └── application.properties              # Configuração do Spring Boot, JPA e H2
 ```
 
@@ -63,10 +71,27 @@ Método abstrato `exibirDados()` definido em `Pessoa` e implementado de forma es
 | Anotação | Classe | Função |
 |---|---|---|
 | `@SpringBootApplication` | `App` | Inicializa o Spring Boot e escaneia os pacotes automaticamente |
+| `@Controller` | `UsuarioController` | Recebe requisições do navegador e retorna telas HTML |
 | `@Service` | `UsuarioService` | Indica a camada de regras de negócio |
 | `@Repository` | `UsuarioRepository` | Indica a camada de acesso a dados |
 | `@PersistenceContext` | `UsuarioRepository` | Injeta o EntityManager gerenciado pelo Spring |
 | `@Transactional` | `UsuarioService` | Gerencia transações automaticamente |
+
+---
+
+## 🌐 Interface Web
+
+Telas desenvolvidas com **Thymeleaf** e **Bootstrap 5.3** com identidade visual inspirada na Deloitte.
+
+| Rota | Descrição |
+|---|---|
+| `GET /usuarios` | Lista todos os usuários |
+| `GET /usuarios/novo` | Formulário de cadastro |
+| `POST /usuarios/salvar` | Salva novo usuário |
+| `GET /usuarios/editar/{id}` | Formulário de edição |
+| `POST /usuarios/atualizar` | Atualiza usuário |
+| `GET /usuarios/remover/{id}` | Remove usuário |
+| `GET /usuarios/buscar?id=` | Busca usuário por ID |
 
 ---
 
@@ -75,7 +100,7 @@ Método abstrato `exibirDados()` definido em `Pessoa` e implementado de forma es
 - [x] Cadastrar novo usuário com validação de nome e e-mail
 - [x] Listar todos os usuários
 - [x] Buscar usuário por ID
-- [x] Atualizar dados de um usuário com confirmação
+- [x] Atualizar dados de um usuário
 - [x] Remover usuário com confirmação
 
 ---
@@ -102,8 +127,13 @@ git clone https://github.com/RamiresFilho/crud-java.git
 
 4. Execute a classe `App.java`
 
+5. Acesse no navegador
+```
+http://localhost:8080/usuarios
+```
+
 ---
 
 ## 👨‍💻 Autor
 
-Feito por **RamiresFilho** durante o Bootcamp Java
+Feito por **RamiresFilho** durante o Bootcamp Java Deloitte
