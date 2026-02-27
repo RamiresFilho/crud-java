@@ -112,7 +112,7 @@ Telas desenvolvidas com **Thymeleaf** e **Bootstrap 5.3** com identidade visual 
 | SQL Injection | JPA + Hibernate usa Prepared Statements automaticamente |
 | XSS | Thymeleaf escapa caracteres HTML automaticamente |
 | Validação de nome | Apenas letras e espaços são aceitos |
-| Validação de e-mail | Verificação de formato sem regex — parte local, `@` único e domínio válido |
+| Validação de e-mail | Verificação de formato — parte local, `@` único e domínio válido |
 
 ---
 
