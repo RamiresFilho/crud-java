@@ -4,7 +4,13 @@ import com.ramires.gestaousuarios.model.Usuario;
 import com.ramires.gestaousuarios.service.UsuarioService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/usuarios")
@@ -25,13 +31,18 @@ public class UsuarioController {
     @GetMapping("/novo")
     public String novo(Model model) {
         model.addAttribute("usuario", new Usuario());
-        return "formulario"; // busca o arquivo formulario.html em templates/
+        return "formulario";
     }
 
     @PostMapping("/salvar")
-    public String salvar(@ModelAttribute Usuario usuario) {
-        service.criarUsuario(usuario.getNome(), usuario.getEmail());
-        return "redirect:/usuarios"; // volta para a lista após salvar
+    public String salvar(@ModelAttribute Usuario usuario, RedirectAttributes redirectAttributes) {
+        try {
+            service.criarUsuario(usuario.getNome(), usuario.getEmail());
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("erro", e.getMessage());
+            return "redirect:/usuarios/novo";
+        }
+        return "redirect:/usuarios";
     }
 
     @GetMapping("/editar/{id}")
@@ -41,8 +52,13 @@ public class UsuarioController {
     }
 
     @PostMapping("/atualizar")
-    public String atualizar(@ModelAttribute Usuario usuario) {
-        service.atualizarUsuario(usuario.getId(), usuario.getNome(), usuario.getEmail());
+    public String atualizar(@ModelAttribute Usuario usuario, RedirectAttributes redirectAttributes) {
+        try {
+            service.atualizarUsuario(usuario.getId(), usuario.getNome(), usuario.getEmail());
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("erro", e.getMessage());
+            return "redirect:/usuarios/editar/" + usuario.getId();
+        }
         return "redirect:/usuarios";
     }
 

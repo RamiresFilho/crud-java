@@ -17,11 +17,37 @@ public class UsuarioService {
     }
 
     public boolean emailValido(String email) {
-        return email.contains("@") && email.contains(".com");
+        if (email == null || email.isBlank()) return false;
+
+        int arroba = email.indexOf("@");
+
+        if (arroba <= 0) return false;
+        if (email.indexOf("@", arroba + 1) != -1) return false;
+        String dominio = email.substring(arroba + 1);
+        if (!dominio.contains(".")) return false;
+        if (dominio.startsWith(".") || dominio.endsWith(".")) return false;
+        if (Character.isDigit(email.charAt(0))) return false;
+
+        return true;
+    }
+
+    public boolean nomeValido(String nome) {
+        for (char c : nome.toCharArray()) {
+            if (!Character.isLetter(c) && c != ' ') {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Transactional
     public void criarUsuario(String nome, String email) {
+        if (!nomeValido(nome)) {
+            throw new IllegalArgumentException("O nome deve conter apenas letras.");
+        }
+        if (!emailValido(email)) {
+            throw new IllegalArgumentException("E-mail inválido.");
+        }
         Usuario usuario = new Usuario(null, nome, email);
         repository.salvar(usuario);
         System.out.println("\nUsuário cadastrado com sucesso!");
@@ -48,10 +74,15 @@ public class UsuarioService {
 
     @Transactional
     public void atualizarUsuario(Long id, String novoNome, String novoEmail) {
+        if (!nomeValido(novoNome)) {
+            throw new IllegalArgumentException("O nome deve conter apenas letras.");
+        }
+        if (!emailValido(novoEmail)) {
+            throw new IllegalArgumentException("E-mail inválido.");
+        }
         Usuario usuario = repository.buscarPorId(id);
         if (usuario == null) {
-            System.out.println("Usuário com ID " + id + " não encontrado.");
-            return;
+            throw new IllegalArgumentException("Usuário com ID " + id + " não encontrado.");
         }
         usuario.setNome(novoNome);
         usuario.setEmail(novoEmail);
@@ -64,8 +95,7 @@ public class UsuarioService {
     public void removerUsuario(Long id) {
         Usuario usuario = repository.buscarPorId(id);
         if (usuario == null) {
-            System.out.println("Usuário com ID " + id + " não encontrado.");
-            return;
+            throw new IllegalArgumentException("Usuário com ID " + id + " não encontrado.");
         }
         repository.remover(id);
         System.out.println("\nUsuário ID " + id + " removido com sucesso.");
