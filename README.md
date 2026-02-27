@@ -105,6 +105,17 @@ Telas desenvolvidas com **Thymeleaf** e **Bootstrap 5.3** com identidade visual 
 
 ---
 
+## 🔒 Segurança
+
+| Proteção | Como foi implementado |
+|---|---|
+| SQL Injection | JPA + Hibernate usa Prepared Statements automaticamente |
+| XSS | Thymeleaf escapa caracteres HTML automaticamente |
+| Validação de nome | Apenas letras e espaços são aceitos |
+| Validação de e-mail | Verificação de formato sem regex — parte local, `@` único e domínio válido |
+
+---
+
 ## 🗄️ Banco de Dados
 
 Utiliza H2 em memória — os dados existem enquanto a aplicação está rodando e são apagados ao encerrar.
